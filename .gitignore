@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore some config stuff
+config/*.yml
+
 # Ignore some database stuff.
 /db/*.yml
 
