@@ -1,2 +1,2 @@
 # recipedb
-https://nj1upgithub001.fxcorp/puppet
+https://github.com/sethlyons/recipedb.git
