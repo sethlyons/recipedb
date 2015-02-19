@@ -8,7 +8,7 @@
 /.bundle
 
 # Ignore some config stuff
-config/*.yml
+/config/*.yml
 
 # Ignore some database stuff.
 /db/*.yml
