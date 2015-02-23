@@ -11,12 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219181737) do
+ActiveRecord::Schema.define(version: 20150223005042) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.text     "steps",      limit: 65535
+    t.integer  "difficulty", limit: 4
+    t.time     "prep_time"
+    t.time     "cook_time"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
 end

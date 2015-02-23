@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  steps: MyText
+  difficulty: 1
+  prep_time: 2015-02-22 19:50:42
+  cook_time: 2015-02-22 19:50:42
+
+two:
+  name: MyString
+  steps: MyText
+  difficulty: 1
+  prep_time: 2015-02-22 19:50:42
+  cook_time: 2015-02-22 19:50:42
