@@ -1,7 +1,7 @@
 class Recipe < ActiveRecord::Base
 
-  has_many :ingredient_recipes
-  has_many :recipes, through: :ingredient_recipes
+  has_many :recipe_ingredients, dependent: :destroy
+  has_many :recipes, through: :recipe_ingredients
 
   # capitalize the name of each recipe
   def name=(val)
