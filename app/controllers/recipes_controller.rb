@@ -26,6 +26,14 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
 
+    if @recipe.save
+      ri_ids = params[:ingredients]
+      ri_ids.each do |ri|
+        ri = RecipeIngredient.new(recipe_id:  @recipe.id, ingredient_id: ri)
+        ri.save!
+      end
+    end
+
     respond_to do |format|
       if @recipe.save
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
@@ -69,6 +77,6 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :steps, :difficulty, :prep_time, :cook_time)
+      params.require(:recipe).permit(:name, :steps, :difficulty, :prep_time, :cook_time, :ingedients)
     end
 end
