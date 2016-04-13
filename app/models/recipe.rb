@@ -10,11 +10,11 @@ class Recipe < ActiveRecord::Base
     super(val.capitalize)
   end
 
-#  def add_ingredient(ingredient, quantity)
-#    ri = IngredientRecipe.new
-#    ri.ingredient = ingredient
-#    ri.quantity = quantity
-#    ri.recipe = self
-#    ri.save!
-#  end
+  def add_ingredient(ingredient, quantity)
+    ri = IngredientRecipe.new
+    ri.ingredient = ingredient
+    ri.quantity = quantity
+    ri.recipe = self
+    ri.save!
+  end
 end
