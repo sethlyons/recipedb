@@ -25,5 +25,9 @@ class RecipeTest < ActiveSupport::TestCase
   end
 
   test "an ingredient can only exist once per recipe" do
+    r = Recipe.create(name: "Banana split")
+    i = Ingredient.create(name: "Banana")
+    r.add_ingredient(i, "2 scoops")
+    assert_raises(ActiveRecord::RecordInvalid) { r.add_ingredient(i, "2 scoops") }
   end
 end
