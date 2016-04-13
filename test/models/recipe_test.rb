@@ -30,4 +30,21 @@ class RecipeTest < ActiveSupport::TestCase
     r.add_ingredient(i, "2 scoops")
     assert_raises(ActiveRecord::RecordInvalid) { r.add_ingredient(i, "2 scoops") }
   end
+
+  test "it should allow steps to be entered" do
+    r = Recipe.new
+    r.name = "Banana split"
+    r.steps = "Step 1; step 2; step3"
+    assert r.save
+  end
+
+#  test "it should allow difficulty to be entered" do
+#    r = Recipe.new
+#    r.name = "Banana split"
+#    r.difficulty = 1
+#    assert r.save
+
+#    r.difficulty = "foo"
+#    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
+#  end
 end
