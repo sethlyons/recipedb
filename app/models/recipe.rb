@@ -3,6 +3,9 @@ class Recipe < ActiveRecord::Base
   has_many :ingredient_recipes, dependent: :destroy
   has_many :ingredients, through: :ingredient_recipes
 
+  validates_numericality_of :difficulty, only_integer: true,
+                                         greater_than_or_equal_to: 1,
+                                         less_than_or_equal_to: 5
   validates_uniqueness_of :name
 
   # capitalize the name of each recipe

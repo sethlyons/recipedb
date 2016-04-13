@@ -8,14 +8,14 @@ class RecipeTest < ActiveSupport::TestCase
   end
 
   test "it should not allow duplicate recipes" do
-    d = Recipe.new(name: "Baked ziti")
+    d = Recipe.new(name: "Baked ziti", difficulty: 1)
     e = Recipe.new(name: "Baked ziti")
     d.save!
     assert_raises(ActiveRecord::RecordInvalid) { e.save! }
   end
 
   test "add_ingredient should create recipe_ingredients" do
-    r = Recipe.create(name: "Banana split")
+    r = Recipe.create(name: "Banana split", difficulty: 1)
     i = Ingredient.create(name: "Banana")
     r.add_ingredient(i, "2 scoops")
 
@@ -25,7 +25,7 @@ class RecipeTest < ActiveSupport::TestCase
   end
 
   test "an ingredient can only exist once per recipe" do
-    r = Recipe.create(name: "Banana split")
+    r = Recipe.create(name: "Banana split", difficulty: 1)
     i = Ingredient.create(name: "Banana")
     r.add_ingredient(i, "2 scoops")
     assert_raises(ActiveRecord::RecordInvalid) { r.add_ingredient(i, "2 scoops") }
@@ -34,17 +34,24 @@ class RecipeTest < ActiveSupport::TestCase
   test "it should allow steps to be entered" do
     r = Recipe.new
     r.name = "Banana split"
+    r.difficulty = 1
     r.steps = "Step 1; step 2; step3"
     assert r.save
   end
 
-#  test "it should allow difficulty to be entered" do
-#    r = Recipe.new
-#    r.name = "Banana split"
-#    r.difficulty = 1
-#    assert r.save
+  test "it should allow difficulty to be entered" do
+    r = Recipe.new
+    r.name = "Banana split"
+    r.difficulty = 1
+    assert r.save
+  end
 
-#    r.difficulty = "foo"
-#    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
-#  end
+  test "it should only allow difficulty to be 1-5" do
+    r = Recipe.new
+    r.name = "Banana split"
+    r.difficulty = "foo"
+    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
+    r.difficulty = 6
+    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
+  end
 end
