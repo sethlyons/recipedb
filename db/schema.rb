@@ -13,21 +13,22 @@
 
 ActiveRecord::Schema.define(version: 20150223161727) do
 
+  create_table "ingredient_recipes", force: :cascade do |t|
+    t.integer  "recipe_id",     limit: 4
+    t.integer  "ingredient_id", limit: 4
+    t.string   "quantity",      limit: 255, null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "ingredient_recipes", ["ingredient_id"], name: "index_ingredient_recipes_on_ingredient_id", using: :btree
+  add_index "ingredient_recipes", ["recipe_id"], name: "index_ingredient_recipes_on_recipe_id", using: :btree
+
   create_table "ingredients", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
-
-  create_table "recipe_ingredients", force: :cascade do |t|
-    t.integer  "recipe_id",     limit: 4
-    t.integer  "ingredient_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  add_index "recipe_ingredients", ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id", using: :btree
-  add_index "recipe_ingredients", ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id", using: :btree
 
   create_table "recipes", force: :cascade do |t|
     t.string   "name",       limit: 255

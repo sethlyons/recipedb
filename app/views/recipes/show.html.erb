@@ -24,6 +24,10 @@
   <strong>Cook time:</strong>
   <%= @recipe.cook_time %>
 </p>
+<p>
+  <strong>Ingredients:</strong>
+  <%= @recipe.get_ingredients %>
+</p>
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>

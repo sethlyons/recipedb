@@ -25,23 +25,17 @@ class RecipesController < ApplicationController
   # POST /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.save!
 
-    if @recipe.save
-      ri_ids = params[:ingredients]
-      ri_ids.each do |ri|
-        ri = RecipeIngredient.new(recipe_id:  @recipe.id, ingredient_id: ri)
-        ri.save!
-      end
+    ri_ids = params[:ingredients]
+    ri_ids.each do |ri|
+      ri = RecipeIngredient.new(recipe_id: @recipe.id, ingredient_id: ri)
+      ri.save!
     end
 
     respond_to do |format|
-      if @recipe.save
-        format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
-        format.json { render :show, status: :created, location: @recipe }
-      else
-        format.html { render :new }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @recipe, notice: 'Recipe successfully created.' }
+      format.json { render :show, status: :created, location: @recipe }
     end
   end
 
