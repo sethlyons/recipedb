@@ -28,7 +28,8 @@ class RecipeTest < ActiveSupport::TestCase
     r = Recipe.create(name: "Banana split", difficulty: 1)
     i = Ingredient.create(name: "Banana")
     r.add_ingredient(i, "2 scoops")
-    assert_raises(ActiveRecord::RecordInvalid) { r.add_ingredient(i, "2 scoops") }
+    assert_raises(ActiveRecord::RecordInvalid)
+      { r.add_ingredient(i, "2 scoops") }
   end
 
   test "it should allow steps to be entered" do
@@ -52,6 +53,28 @@ class RecipeTest < ActiveSupport::TestCase
     r.difficulty = "foo"
     assert_raises(ActiveRecord::RecordInvalid) { r.save! }
     r.difficulty = 6
+    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
+  end
+
+  test "prep_time should only allow positive integers" do
+    r = Recipe.new
+    r.name = "Banana split"
+    r.prep_time = 1
+    assert r.save
+    r.prep_time = "-1"
+    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
+    r.prep_time = "foo"
+    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
+  end
+
+  test "cook_time should only allow positive integers" do
+    r = Recipe.new
+    r.name = "Banana split"
+    r.cook_time = 1
+    assert r.save
+    r.cook_time = "-1"
+    assert_raises(ActiveRecord::RecordInvalid) { r.save! }
+    r.cook_time = "foo"
     assert_raises(ActiveRecord::RecordInvalid) { r.save! }
   end
 end

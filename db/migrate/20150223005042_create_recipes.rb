@@ -4,8 +4,8 @@ class CreateRecipes < ActiveRecord::Migration
       t.string :name
       t.text :steps
       t.integer :difficulty
-      t.time :prep_time
-      t.time :cook_time
+      t.integer :prep_time
+      t.integer :cook_time
 
       t.timestamps null: false
     end
