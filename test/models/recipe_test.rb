@@ -8,7 +8,11 @@ class RecipeTest < ActiveSupport::TestCase
   end
 
   test "it should not allow duplicate recipes" do
-    d = Recipe.new(name: "Baked ziti", difficulty: 1)
+    d = Recipe.new
+    d.name = "Baked ziti"
+    d.difficulty = 1
+    d.cook_time = 1
+    d.prep_time = 1
     e = Recipe.new(name: "Baked ziti")
     d.save!
     assert_raises(ActiveRecord::RecordInvalid) { e.save! }
@@ -28,13 +32,15 @@ class RecipeTest < ActiveSupport::TestCase
     r = Recipe.create(name: "Banana split", difficulty: 1)
     i = Ingredient.create(name: "Banana")
     r.add_ingredient(i, "2 scoops")
-    assert_raises(ActiveRecord::RecordInvalid)
+    assert_raises(ActiveRecord::RecordInvalid) \
       { r.add_ingredient(i, "2 scoops") }
   end
 
   test "it should allow steps to be entered" do
     r = Recipe.new
     r.name = "Banana split"
+    r.prep_time = 1
+    r.cook_time = 1
     r.difficulty = 1
     r.steps = "Step 1; step 2; step3"
     assert r.save
@@ -43,6 +49,8 @@ class RecipeTest < ActiveSupport::TestCase
   test "it should allow difficulty to be entered" do
     r = Recipe.new
     r.name = "Banana split"
+    r.cook_time = 1
+    r.prep_time = 1
     r.difficulty = 1
     assert r.save
   end
@@ -59,6 +67,8 @@ class RecipeTest < ActiveSupport::TestCase
   test "prep_time should only allow positive integers" do
     r = Recipe.new
     r.name = "Banana split"
+    r.difficulty = 1
+    r.cook_time = 1
     r.prep_time = 1
     assert r.save
     r.prep_time = "-1"
@@ -70,6 +80,8 @@ class RecipeTest < ActiveSupport::TestCase
   test "cook_time should only allow positive integers" do
     r = Recipe.new
     r.name = "Banana split"
+    r.difficulty = 1
+    r.prep_time = 1
     r.cook_time = 1
     assert r.save
     r.cook_time = "-1"
