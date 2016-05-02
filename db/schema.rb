@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20150223161727) do
     t.string   "name",       limit: 255
     t.text     "steps",      limit: 65535
     t.integer  "difficulty", limit: 4
-    t.time     "prep_time"
-    t.time     "cook_time"
+    t.integer  "prep_time",  limit: 4
+    t.integer  "cook_time",  limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
